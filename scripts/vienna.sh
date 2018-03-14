@@ -1,13 +1,14 @@
 #!/bin/sh
 
 #SUB_NAME="Boston PM Subscription for Spark MIGRATED NO NEW SERVICES"
-#REGION="eastus2"
+#REGION="eastus2euap"
 
 SUB_NAME="WW EC Demo"
 REGION="westcentralus"
 
 RG_NAME="ninghairg"
 EXP_ACCT_NAME="haiexpacct"
+CUR_PATH=$(pwd)
 TMP_PATH='/tmp'
 
 #az extension add -s https://adyadaexpaccount.blob.core.windows.net/cliextensionwheel/azure_cli_machinelearning-0.0.97-py2.py3-none-any.whl --pip-extra-index-urls https://azuremldownloads.azureedge.net/python-repository/preview
@@ -64,8 +65,7 @@ echo "running iris_spark.py on local Docker..."
 az ml experiment submit -c docker-spark iris_spark.py
 
 # back to script directory
-# cd ~/git/pm_challenge/scripts
-cd /data/git/pm_challenge/scripts
+cd $CUR_PATH
 
 echo "deleting Iris project..."
 az ml project delete -y -n iris -a "$EXP_ACCT_NAME" -w testws  -g "$RG_NAME"
@@ -75,5 +75,4 @@ rm -rf {$TMP_PATH_NAME}/iris
 
 echo deleting resource group...
 az group delete -y -n "$RG_NAME"
-
 echo "all cleaned up."
