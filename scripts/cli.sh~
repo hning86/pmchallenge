@@ -1,0 +1,9 @@
+az ml login
+
+az account list -o table
+
+az account set -s 'my sub name'
+
+az group create -n 'amlrg' -l 'eastus2'
+
+az ml workspace create -n 'myws' -g amlrg
