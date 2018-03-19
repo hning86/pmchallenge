@@ -80,7 +80,7 @@ az ml env delete -n "$MLC_NAME" -g "$RG_NAME"
 az ml account modelmanagement delete -n "$MMS_ACCT_NAME" -g "$RG_NAME"
 
 #delete experimentation account
-az ml account experimentation delete -n "$EXP_ACCT_NAME" -g "$RG_NAME"
+az ml account experimentation delete -n "EXP_ACCT_NAME" -g "$RG_NAME"
 
 #delete resource group
 az group delete -y -n "$RG_NAME"
