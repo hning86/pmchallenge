@@ -64,23 +64,32 @@ cd $TMP_PATH/$PROJ_NAME
 #run script locally
 az ml experiment submit -c $SAMPLE_TARGET $SAMPLE_ENTRY
 
+#add remote compute target
+az ml computetarget attach remote --name "acivm" --address "13.90.227.204" --username "root" --password Spark888*123
+
+#prepare compute target
+az ml experiment prepare -c acivm
+
+#submit job to remote VM
+az ml experiment submit -c acivm $SAMPLE_ENTRY
+
 #back to script directory
-cd $CUR_PATH
+#cd $CUR_PATH
 
 #delete project
-az ml project delete -y -n $SAMPLE -a "$EXP_ACCT_NAME" -w testws  -g "$RG_NAME"
+#az ml project delete -y -n $SAMPLE -a "$EXP_ACCT_NAME" -w testws  -g "$RG_NAME"
 
 #delete local project folder
-rm -rf $TMP_PATH/$PROJ_NAME
+#rm -rf $TMP_PATH/$PROJ_NAME
 
 #delete MLC
-az ml env delete -n "$MLC_NAME" -g "$RG_NAME"
+#az ml env delete -n "$MLC_NAME" -g "$RG_NAME"
 
 #delete MMS
-az ml account modelmanagement delete -n "$MMS_ACCT_NAME" -g "$RG_NAME"
+#az ml account modelmanagement delete -n "$MMS_ACCT_NAME" -g "$RG_NAME"
 
 #delete experimentation account
-az ml account experimentation delete -n "$EXP_ACCT_NAME" -g "$RG_NAME"
+#az ml account experimentation delete -n "$EXP_ACCT_NAME" -g "$RG_NAME"
 
 #delete resource group
-az group delete -y -n "$RG_NAME"
+#az group delete -y -n "$RG_NAME"
